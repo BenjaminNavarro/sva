@@ -1,7 +1,7 @@
 use nalgebra::{Vector3, Vector6};
 
-type Vec3 = Vector3<f64>;
-type Vec6 = Vector6<f64>;
+pub type Vec3 = Vector3<f64>;
+pub type Vec6 = Vector6<f64>;
 
 pub mod force_vec;
 pub use self::force_vec::*;
