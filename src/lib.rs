@@ -9,10 +9,13 @@ mod tests {
     // use na;
     #[test]
     fn it_works() {
-        let mvec1 = sva::MotionVectorf64::new();
-        let mvec2 = sva::MotionVectorf64::zero();
+        let mut mvec1 = sva::MotionVector::new();
+        let mut mvec2 = sva::MotionVector::zero();
+        mvec1.angular[0] = 1.;
+        mvec2.linear[2] = -1.;
         println!("{:?}", mvec1);
         println!("{:?}", mvec2);
+        println!("{:?}", mvec1+mvec2);
         assert_eq!(2 + 2, 4);
     }
 }
