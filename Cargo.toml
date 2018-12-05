@@ -1,0 +1,8 @@
+[package]
+name = "sva"
+version = "0.1.0"
+authors = ["Benjamin Navarro"]
+
+[dependencies]
+nalgebra = "0.16"
+num-traits = "0.2"
