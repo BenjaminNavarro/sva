@@ -1,7 +1,11 @@
 [package]
 name = "sva"
 version = "0.1.0"
-authors = ["Benjamin Navarro"]
+authors = ["Benjamin Navarro <navarro.benjamin13@gmail.com>"]
+description = "Implementation of Spatial Vector Algebra based on nalgebra"
+license = "LGPL"
+readme = "README.md"
+repository = "https://github.com/BenjaminNavarro/sva.git"
 
 [dependencies]
 nalgebra = "0.16"
