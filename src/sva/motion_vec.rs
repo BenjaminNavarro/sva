@@ -1,9 +1,8 @@
+use std::fmt;
 use std::ops;
 
-use na::{Vector3, Vector6};
-
-type Vec3 = Vector3<f64>;
-type Vec6 = Vector6<f64>;
+use sva::ForceVector;
+use sva::{Vec3, Vec6};
 
 #[derive(Clone, Copy, Debug)]
 pub struct MotionVector {
@@ -14,8 +13,8 @@ pub struct MotionVector {
 impl MotionVector {
     pub fn zero() -> Self {
         Self {
-            angular: Vector3::zeros(),
-            linear: Vector3::zeros(),
+            angular: Vec3::zeros(),
+            linear: Vec3::zeros(),
         }
     }
 
@@ -25,8 +24,8 @@ impl MotionVector {
 
     pub fn from_vector(vector: Vec6) -> Self {
         Self {
-            angular: Vector3::new(vector[0], vector[1], vector[2]),
-            linear: Vector3::new(vector[3], vector[4], vector[5]),
+            angular: Vec3::new(vector[0], vector[1], vector[2]),
+            linear: Vec3::new(vector[3], vector[4], vector[5]),
         }
     }
 
@@ -49,7 +48,21 @@ impl MotionVector {
     }
 
     pub fn cross(&self, other: MotionVector) -> MotionVector {
-        MotionVector::from_vectors(self.angular.cross(&other.angular), self.angular.cross(&other.linear) + self.linear.cross(&other.angular))
+        MotionVector::from_vectors(
+            self.angular.cross(&other.angular),
+            self.angular.cross(&other.linear) + self.linear.cross(&other.angular),
+        )
+    }
+
+    pub fn cross_dual(&self, other: ForceVector) -> ForceVector {
+        ForceVector::from_vectors(
+            self.angular.cross(&other.couple) + self.linear.cross(&other.force),
+            self.angular.cross(&other.force),
+        )
+    }
+
+    pub fn dot(&self, other: ForceVector) -> f64 {
+        self.angular.dot(&other.couple) + self.linear.dot(&other.force)
     }
 }
 
@@ -97,6 +110,14 @@ impl ops::Mul<f64> for MotionVector {
     }
 }
 
+impl ops::Mul<MotionVector> for f64 {
+    type Output = MotionVector;
+
+    fn mul(self, motion_vector: MotionVector) -> MotionVector {
+        motion_vector * self
+    }
+}
+
 impl ops::MulAssign<f64> for MotionVector {
     fn mul_assign(&mut self, scalar: f64) {
         *self = MotionVector::from_vectors(scalar * self.angular, scalar * self.linear)
@@ -114,5 +135,26 @@ impl ops::Div<f64> for MotionVector {
 impl ops::DivAssign<f64> for MotionVector {
     fn div_assign(&mut self, scalar: f64) {
         *self = MotionVector::from_vectors(self.angular / scalar, self.linear / scalar)
+    }
+}
+
+impl std::cmp::PartialEq for MotionVector {
+    fn eq(&self, other: &MotionVector) -> bool {
+        self.angular == other.angular && self.linear == other.linear
+    }
+}
+
+impl fmt::Display for MotionVector {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "(angular: [{ax} {ay} {az}], linear: [{lx} {ly} {lz}])",
+            ax = self.angular[0],
+            ay = self.angular[1],
+            az = self.angular[2],
+            lx = self.linear[0],
+            ly = self.linear[1],
+            lz = self.linear[2],
+        )
     }
 }
