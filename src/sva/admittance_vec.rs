@@ -118,6 +118,14 @@ impl ops::Mul<f64> for AdmittanceVector {
     }
 }
 
+impl ops::Mul<AdmittanceVector> for f64 {
+    type Output = AdmittanceVector;
+
+    fn mul(self, admittance_vector: AdmittanceVector) -> AdmittanceVector {
+        admittance_vector * self
+    }
+}
+
 impl ops::Mul<ForceVector> for AdmittanceVector {
     type Output = MotionVector;
 

@@ -1,7 +1,12 @@
-use nalgebra::{Vector3, Vector6, U3};
+use nalgebra::{Matrix3, Matrix6, Vector3, Vector6, U3};
 
 pub type Vec3 = Vector3<f64>;
 pub type Vec6 = Vector6<f64>;
+pub type Mat3 = Matrix3<f64>;
+pub type Mat6 = Matrix6<f64>;
+
+pub mod utility;
+pub use self::utility::*;
 
 pub mod force_vec;
 pub use self::force_vec::*;

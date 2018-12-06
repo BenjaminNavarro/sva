@@ -37,8 +37,8 @@ impl ImpedanceVector {
 
     pub fn from_scalars(angular: f64, linear: f64) -> Self {
         Self {
-            angular: Vec3::new(angular, angular, angular),
-            linear: Vec3::new(linear, linear, linear),
+            angular: Vec3::repeat(angular),
+            linear: Vec3::repeat(linear),
         }
     }
 
@@ -115,6 +115,14 @@ impl ops::Mul<f64> for ImpedanceVector {
 
     fn mul(self, scalar: f64) -> ImpedanceVector {
         ImpedanceVector::from_vectors(scalar * self.angular, scalar * self.linear)
+    }
+}
+
+impl ops::Mul<ImpedanceVector> for f64 {
+    type Output = ImpedanceVector;
+
+    fn mul(self, impedance_vector: ImpedanceVector) -> ImpedanceVector {
+        impedance_vector * self
     }
 }
 
