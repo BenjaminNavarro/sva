@@ -1,9 +1,7 @@
 use std::fmt;
 use std::ops;
 
-use sva::ForceVector;
-use sva::MotionVector;
-use sva::{Vec3, Vec6};
+use sva::*;
 
 #[derive(Clone, Copy, Debug)]
 pub struct AdmittanceVector {
@@ -25,8 +23,8 @@ impl AdmittanceVector {
 
     pub fn from_vector(vector: Vec6) -> Self {
         Self {
-            angular: Vec3::new(vector[0], vector[1], vector[2]),
-            linear: Vec3::new(vector[3], vector[4], vector[5]),
+            angular: get_first_vec3(&vector),
+            linear: get_second_vec3(&vector),
         }
     }
 

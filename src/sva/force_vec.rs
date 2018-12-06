@@ -1,7 +1,7 @@
 use std::fmt;
 use std::ops;
 
-use super::{Vec3, Vec6};
+use sva::*;
 
 #[derive(Clone, Copy, Debug)]
 pub struct ForceVector {
@@ -23,8 +23,8 @@ impl ForceVector {
 
     pub fn from_vector(vector: Vec6) -> Self {
         Self {
-            couple: Vec3::new(vector[0], vector[1], vector[2]),
-            force: Vec3::new(vector[3], vector[4], vector[5]),
+            couple: get_first_vec3(&vector),
+            force: get_second_vec3(&vector),
         }
     }
 
