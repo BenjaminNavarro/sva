@@ -1,9 +1,10 @@
-use nalgebra::{Matrix3, Matrix6, Vector3, Vector6, U3, UnitQuaternion};
+use nalgebra::{Matrix3, Matrix6, Rotation3, UnitQuaternion, Vector3, Vector6, U3};
 
 pub type Vec3 = Vector3<f64>;
 pub type Vec6 = Vector6<f64>;
 pub type Mat3 = Matrix3<f64>;
 pub type Mat6 = Matrix6<f64>;
+pub type Rot3 = Rotation3<f64>;
 pub type Quat = UnitQuaternion<f64>;
 
 pub mod utility;
