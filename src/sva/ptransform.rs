@@ -138,6 +138,21 @@ impl PTransform {
     }
 
     // TODO functions on inertia
+    pub fn dual_mul_rb(&self, rbI: &RBInertia) -> RBInertia {
+        unimplemented!()
+    }
+
+    pub fn trans_mul_rb(&self, rbI: &RBInertia) -> RBInertia {
+        unimplemented!()
+    }
+
+    pub fn dual_mul_ab(&self, abI: &ABInertia) -> ABInertia {
+        unimplemented!()
+    }
+
+    pub fn trans_mul_ab(&self, abI: &ABInertia) -> ABInertia {
+        unimplemented!()
+    }
 
     pub fn inv(&self) -> Self {
         Self {

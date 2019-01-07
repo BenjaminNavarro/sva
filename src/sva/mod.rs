@@ -1,3 +1,7 @@
+/**
+ * Against Rusr standrd, non snake case names are used to denote matrices (e.g. rotation matrices)
+ * to conform with the mathematical notations
+ */
 use nalgebra::{Matrix3, Matrix6, Rotation3, UnitQuaternion, Vector3, Vector6, U3};
 
 pub type Vec3 = Vector3<f64>;
@@ -24,6 +28,12 @@ pub use self::impedance_vec::*;
 
 pub mod ptransform;
 pub use self::ptransform::*;
+
+pub mod rb_inertia;
+pub use self::rb_inertia::*;
+
+pub mod ab_inertia;
+pub use self::ab_inertia::*;
 
 pub fn get_first_vec3(vector: &Vec6) -> Vec3 {
     vector.fixed_rows::<U3>(0).into()

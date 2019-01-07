@@ -45,16 +45,15 @@ pub fn sinc_inv(x: f64) -> f64 {
 
     if x.abs() >= taylor_n_bound {
         x / x.sin()
-    }
-    else {
+    } else {
         let mut result = 1.;
 
         if x.abs() >= taylor_0_bound {
-            let x2 = x*x;
-            result += x2/6.;
+            let x2 = x * x;
+            result += x2 / 6.;
 
             if x.abs() >= taylor_2_bound {
-                result += 7.*(x2*x2)/360.
+                result += 7. * (x2 * x2) / 360.
             }
         }
 

@@ -373,4 +373,14 @@ mod tests {
         // zero
         assert_eq!(sva::AdmittanceVector::zero().vector(), sva::Vec6::zeros());
     }
+
+    #[test]
+    pub fn test_rbinertia() {
+        let inertia = sva::Mat3::new_random();
+        let rbi = sva::RBInertia::new(0.5, sva::Vec3::zeros(), inertia);
+
+        println!("inertia: {}", inertia);
+        println!("rbi: {}", rbi);
+        println!("inertia: {}", rbi.inertia());
+    }
 }
